@@ -1,7 +1,11 @@
 RBDX score analyzer
 
 ## 使用方式
-将ScoreData文件放到score目录下，运行`python parse.py`。
+新建文件夹score，将三个ScoreData文件（从RB中导出）放到score目录下，运行`python parse.py`。
+
+## 参数
+默认画11级以上，$AR \ge 96.9%$的数据，可以通过更改`analyzer.py`改变。
+
 ## SPECIAL铺面
 大多数SPECIAL谱面编号为原谱面+1，但特殊方式解锁或SPECIAL PACK中的谱面可能不是，需要在网站上查询后手动写入编号。
 
