@@ -15,6 +15,7 @@ def analyze(dat) -> None:
                 continue
             dats.append((rank, ar * 100))
     dats = sorted(dats, key=lambda x: (x[0]))
+    print(len(dats))
     ranks, ars = [], []
     cnt, sar = {}, {}
     difs, aar = [], []

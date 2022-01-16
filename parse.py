@@ -38,6 +38,12 @@ import pandas as pd
 import sqlite3
 
 db = sqlite3.connect('./score/ScoreData.sqlite')
+'''
+allstore = pd.read_sql_query("SELECT * FROM ZSCOREDATA", con=db)
+for index, i in allstore.iterrows():
+    print(i["ZTUNEID"], i["ZARBAS"], i["ZARMED"], i["ZARHAR"])
+'''
+
 from fumen import fumen, loadAll
 fumens = {}
 loadAll(fumens)

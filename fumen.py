@@ -43,6 +43,28 @@ def parseFumen(row, sp) -> fumen:
     bpm = row[5] if sp else row[4]
     return fumen(sp, name, comp, charter, level, diff, dens, bpm)
 
+specials = {100006: 100595,
+            100020: 100710,
+            100033: 100929,
+            100044: 100708,
+            100052: 100928,
+            100053: 100515,
+            100122: 100513,
+            100161: 100257,
+            100162: 100512,
+            100163: 100622,
+            100225: 100514,
+            100237: 100709,
+            100276: 100931,
+            100465: 100930,
+            100683: 100685,
+            100703: 100705,
+            100704: 100706,
+            100770: 100773,
+            100905: 100910,
+            215530: 100707
+            }
+
 def loadAll(fs) -> None:
     with open('fumen.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
@@ -53,6 +75,9 @@ def loadAll(fs) -> None:
                 continue
             fid = int("500" + row[0])
             fs[fid] = parseFumen(row, False)
-            if row[-1] != '-':
-                fid = int("500" + str(int(row[0]) + 1))
+            if row[-1] != '-' and row[-2] != '-':
+                if int(row[0]) in specials:
+                    fid = int("500" + str(specials[int(row[0])]))
+                else:
+                    fid = int("500" + str(int(row[0]) + 1))
                 fs[fid] = parseFumen(row, True)
