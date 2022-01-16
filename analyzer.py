@@ -15,7 +15,7 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
                 continue
             dats.append((rank, ar * 100, fc))
     dats = sorted(dats, key=lambda x: (x[0]))
-    print(len(dats))
+    print("analyzed {} scores".format(len(dats)))
     ranks, ars, fcs = [], [], []
     cnt, sar = {}, {}
     difs, aar = [], []
@@ -35,7 +35,7 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
         aar.append(sar[dif])
 #        a98.append(98), a99.append(99), a985.append(98.5)
     import matplotlib.pyplot as plt
-    plt.figure()
+    plt.figure(figsize=(18, 12), dpi = 1080)
     plt.scatter(ranks, ars, marker='x', c=fcs, cmap="brg")
     plt.plot(difs, aar, marker = 'o', color = 'r', label = "avg")
 #    plt.plot(difs, a98, color = 'y', label = "98%")
