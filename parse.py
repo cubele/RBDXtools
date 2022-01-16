@@ -39,10 +39,7 @@ import sqlite3
 
 db = sqlite3.connect('./ScoreData.sqlite')
 df = pd.read_sql_query("SELECT * FROM ZSCOREDATA", con=db)
-flist = []
-for i in df["ZTUNEID"]:
-    flist.append(i)
-flist.sort()
-print(flist)
+from link import parseFumen
+
 
 #for every fumen in csv query in db

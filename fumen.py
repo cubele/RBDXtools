@@ -16,7 +16,7 @@ class fumen:
 
     def __str__(self) -> str:
         print(self.issp, self.name, self.composer, self.charter, self.level, self.diff, self.bpm)
-        return "-------------------------------------------------------";
+        return "-------------------------------------------------------"
 
 def parseFumen(row, sp) -> fumen:
     rd = lambda n: [row[n], row[n + 5], row[n + 10]]
