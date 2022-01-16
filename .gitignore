@@ -1,3 +1,4 @@
 orig/*
 replay/*
 *.sqlite
+*.pyc

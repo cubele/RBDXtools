@@ -13,9 +13,11 @@ class fumen:
         self.ar = []
         self.score = []
         self.fc = []
+        self.pc = []
 
     def __str__(self) -> str:
         print(self.issp, self.name, self.composer, self.charter, self.level, self.diff, self.bpm)
+        print(self.ar, self.score, self.fc, self.pc)
         return "-------------------------------------------------------"
 
 def parseFumen(row, sp) -> fumen:
@@ -36,8 +38,8 @@ def loadAll(fs) -> None:
             if skip > 0:
                 skip -= 1
                 continue
-            fid = "500" + row[0]
+            fid = int("500" + row[0])
             fs[fid] = parseFumen(row, False)
             if row[-1] != '-':
-                fid = "500" + str(int(row[0]) + 1)
+                fid = int("500" + str(int(row[0]) + 1))
                 fs[fid] = parseFumen(row, True)
