@@ -17,6 +17,12 @@ python parse.py -a -p
 
 注意生成的playlist中只包含你提供的参数对应数量的playlist，覆盖后原有的playlist会消失。如果要保留原来的playlist，请备份原来的playlist文件并手动操作playlist文件进行合并。
 
+也可以直接在群里下载打包好的版本，在命令行中进入目录后直接运行
+```bash
+.\RBDXtools.exe -a -p
+```
+即可，修改参数的方式是一样的。
+
 ## 参数
 格式为
 ```bash
