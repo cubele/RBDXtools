@@ -1,4 +1,5 @@
 orig/*
 replay/*
+score/*
 *.sqlite
 *.pyc
