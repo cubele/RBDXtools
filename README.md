@@ -1,7 +1,7 @@
 RBDX score analyzer
 
 ## 使用方式
-将ScoreData文件放到score目录下，运行'python parse.py'。
+将ScoreData文件放到score目录下，运行`python parse.py`。
 ## SPECIAL铺面
 大多数SPECIAL谱面编号为原谱面+1，但特殊方式解锁或SPECIAL PACK中的谱面可能不是，需要在网站上查询后手动写入编号。
 
