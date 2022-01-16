@@ -1,5 +1,7 @@
 orig/*
 replay/*
 score/*
+output/*
 *.sqlite
 *.pyc
+playlist
