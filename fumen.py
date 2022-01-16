@@ -44,7 +44,7 @@ def parseFumen(row, sp) -> fumen:
     return fumen(sp, name, comp, charter, level, diff, dens, bpm)
 
 def loadAll(fs) -> None:
-    with open('fumen.csv', newline='') as csvfile:
+    with open('fumen.csv', newline='', encoding='utf-8') as csvfile:
         reader = csv.reader(csvfile)
         skip = 1;
         for row in reader:
