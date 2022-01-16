@@ -8,21 +8,22 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
     dats = []
     for id in dat:
         nf:fumen = dat[id]
-        for i, rank, ar in zip(nf.pc, nf.rank, nf.ar):
+        for i, rank, ar, fc in zip(nf.pc, nf.rank, nf.ar, nf.fc):
             if i == 0:
                 continue
             if ar * 100 < minar or rank < rankl or rank > rankr:
                 continue
-            dats.append((rank, ar * 100))
+            dats.append((rank, ar * 100, fc))
     dats = sorted(dats, key=lambda x: (x[0]))
     print(len(dats))
-    ranks, ars = [], []
+    ranks, ars, fcs = [], [], []
     cnt, sar = {}, {}
     difs, aar = [], []
 #    a98, a985, a99 = [], [], []
     for i in dats:
         ranks.append(tostr(i[0]))
         ars.append(i[1])
+        fcs.append(i[2])
         if not tostr(i[0]) in cnt:
             cnt[tostr(i[0])] = 0
             sar[tostr(i[0])] = 0
@@ -35,7 +36,7 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
 #        a98.append(98), a99.append(99), a985.append(98.5)
     import matplotlib.pyplot as plt
     plt.figure()
-    plt.plot(ranks, ars, 'x')
+    plt.scatter(ranks, ars, marker='x', c=fcs, cmap="brg")
     plt.plot(difs, aar, marker = 'o', color = 'r', label = "avg")
 #    plt.plot(difs, a98, color = 'y', label = "98%")
 #    plt.plot(difs, a985, color = 'c', label = "98.5%")

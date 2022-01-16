@@ -13,7 +13,7 @@ python parse.py -a -p
 ```
 即可用默认参数运行，更改参数的方法见下一节。
 
-所有文件会输出到output文件夹中，分数统计以图片的方式输出，playlist输出为playlist文件，可以直接导入至RBDX进行覆盖。
+所有文件会输出到output文件夹中，分数统计以图片的方式输出，绿色点表示fc过的谱面。playlist输出为playlist文件，可以直接导入至RBDX进行覆盖。
 
 注意生成的playlist中只包含你提供的参数对应数量的playlist，覆盖后原有的playlist会消失。如果要保留原来的playlist，请备份原来的playlist文件并手动操作playlist文件进行合并。
 
