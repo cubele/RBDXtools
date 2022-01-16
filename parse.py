@@ -43,11 +43,15 @@ fumens = {}
 loadAll(fumens)
 for fid in fumens:
     df = pd.read_sql_query("SELECT * FROM ZSCOREDATA where ZTUNEID = " + str(fid), con=db)
-    if (df.empty):
-        continue
     nf:fumen = fumens[fid]
+    if (df.empty):
+        nf.pc = [0, 0, 0]
+        continue
     rd = lambda s: [df['Z' + s + "BAS"].item(), df['Z' + s + "MED"].item(), df['Z' + s + "HAR"].item()]
     if nf.issp:
         nf.pc, nf.ar, nf.score, nf.fc = [df["ZPCBAS"].item()], [df["ZARBAS"].item()], [df["ZSCOBAS"].item()], [df["ZFCBAS"].item()]
     else:
         nf.pc, nf.ar, nf.score, nf.fc = rd("PC"), rd("AR"), rd("SCO"), rd("FC")
+
+from analyzer import analyze
+analyze(fumens)

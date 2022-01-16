@@ -14,6 +14,19 @@ class fumen:
         self.score = []
         self.fc = []
         self.pc = []
+        self.rank = []
+        for l, d in zip(level, diff):
+            if l == '-':
+                l = 0
+            l = int(l)
+            if d == '-':
+                self.rank.append(l * 100)
+            else:
+                if d == "4?":
+                    d = "4"
+                if d == "?":
+                    d = "0"
+                self.rank.append(l * 100 + int(d))
 
     def __str__(self) -> str:
         print(self.issp, self.name, self.composer, self.charter, self.level, self.diff, self.bpm)
