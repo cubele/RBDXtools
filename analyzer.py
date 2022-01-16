@@ -19,6 +19,7 @@ def analyze(dat) -> None:
     ranks, ars = [], []
     cnt, sar = {}, {}
     difs, aar = [], []
+    a98, a985, a99 = [], [], []
     for i in dats:
         ranks.append(tostr(i[0]))
         ars.append(i[1])
@@ -31,7 +32,15 @@ def analyze(dat) -> None:
         sar[dif] /= cnt[dif]
         difs.append(dif)
         aar.append(sar[dif])
+        a98.append(98), a99.append(99), a985.append(98.5)
     import matplotlib.pyplot as plt
     plt.plot(ranks, ars, 'x')
-    plt.plot(difs, aar, marker = 'o', color = 'r')
+    plt.plot(difs, aar, marker = 'o', color = 'r', label = "avg")
+    plt.plot(difs, a98, color = 'y', label = "98%")
+    plt.plot(difs, a985, color = 'c', label = "98.5%")
+    plt.plot(difs, a99, color = 'm', label = "99%")
+    plt.legend(loc="upper left")
+    plt.title("ScoreData")
+    plt.xlabel("difficulty")
+    plt.ylabel("AR")
     plt.show()
