@@ -37,6 +37,8 @@ ZCHKSCO           object
 import pandas as pd
 import sqlite3
 
+from playlist import createList, printList
+
 db = sqlite3.connect('./score/ScoreData.sqlite')
 '''
 allstore = pd.read_sql_query("SELECT * FROM ZSCOREDATA", con=db)
@@ -59,53 +61,54 @@ for fid in fumens:
     else:
         nf.pc, nf.ar, nf.score, nf.fc = rd("PC"), rd("AR"), rd("SCO"), rd("FC")
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("-a", "--analyze", help="analyze scoredata", action="store_true", default=False)
-parser.add_argument("-p", "--playlist", help="generate playlist", action="store_true", default=False)
-
-parser.add_argument("-ainfo", "--analyze_info", dest="ainfo", nargs='+', type=str,
-                    help="""info for analyzing. format:minar rankl rankr. can accept multiple sets.
-                    example:98.0 11.3 12.5 95.0 10.0 11.1""",
-                    default=["98.0", "11.3", "12.5", "95.0", "10.0", "11.1"])
-
-parser.add_argument("-pinfo", "--playlist_info", dest="pinfo", nargs='+', type = str,
-                    help="""playlist info. format:ar_l ar_r rank_l rank_r. can accept multiple sets.
-                    example:0 98.0 11.3 11.7 98.0 100 11.9 12.7""",
-                    default=["0", "98.0", "11.3", "11.7", "98.0", "100", "11.9", "12.7"])
-args = parser.parse_args()
-
 import re
 def toint(mstr) -> int:
     m = re.search(r"([0-9]+)\.([0-9]+)", mstr)
     return int(m.group(1)) * 100 + int(m.group(2))
 
-if args.analyze:
-    from analyzer import analyze, tostr
-    n = len(args.ainfo)
-    assert n % 3 == 0, "wrong number of args in ainfo"
-    for i in range(0, n - 1, 3):
-        minar, rankl, rankr = float(args.ainfo[i]), toint(args.ainfo[i + 1]), toint(args.ainfo[i + 2])
-        name = "minar{}_rank[{},{}]".format(minar, rankl, rankr)
-        analyze(fumens, minar, rankl, rankr, name)
+print("请确保score目录下已经放置了ScoreData文件")
+from analyzer import analyze, tostr
+while True:
+    instr = input("""输入希望分析的数据区间，格式：最小AR 最小档位 最大档位。
+用空格隔开并以换行结尾，例如96.0 11.6 12.6
+输入jiquan结束分析。
+""")
+    if instr == "jiquan":
+        break
+    print("analyzing...")
+    ainfo = instr.split()
+    if len(ainfo) != 3:
+        print("输入格式有误")
+        continue
+    minar, rankl, rankr = float(ainfo[0]), toint(ainfo[1]), toint(ainfo[2])
+    name = "minar{}_rank[{},{}]".format(minar, rankl, rankr)
+    analyze(fumens, minar, rankl, rankr, name)
 
-if args.playlist:
-    from playlist import createList, printList
-    n = len(args.pinfo)
-    assert n % 4 == 0, "wrong number of args in pinfo"
-    diffl, diffr, arl, arr = [], [], [], []
-    for i in range(0, n - 1, 4):
-        arl.append(float(args.pinfo[i])), arr.append(float(args.pinfo[i + 1]))
-        diffl.append(toint(args.pinfo[i + 2])), diffr.append(toint(args.pinfo[i + 3]))
+arl, arr, diffl, diffr = [], [], [], []
+while True:
+    instr = input("""输入希望创建playlist的数据区间，格式：最小AR 最大AR 最小档位 最大档位。
+以换行结尾，例如0 98.0 11.2 14.1
+输入jiquan结束输入并生成包含所有输入区间的playlist。
+""")
+    if instr == "jiquan":
+        break
+    pinfo = instr.split()
+    if len(pinfo) != 4:
+        print("输入格式有误")
+        continue
+    arl.append(float(pinfo[0])), arr.append(float(pinfo[1]))
+    diffl.append(toint(pinfo[2])), diffr.append(toint(pinfo[3]))
 
-    content = ""
-    for l, r, lar, rar in zip(diffl, diffr, arl, arr):
-        idlist = []
-        for fid in fumens:
-            nf:fumen = fumens[fid]
-            for i, rank, ar in zip(nf.pc, nf.rank, nf.ar):
-                if rank >= l and rank <= r and ar * 100 >= lar and ar * 100 <= rar:
-                    idlist.append(fid)
-        name = "diff[{},{}] AR[{},{}]".format(tostr(l), tostr(r), lar, rar)
-        content = createList(name, idlist, content)
-    printList(content)
+from playlist import createList, printList
+content = ""
+for l, r, lar, rar in zip(diffl, diffr, arl, arr):
+    idlist = []
+    for fid in fumens:
+        nf:fumen = fumens[fid]
+        for i, rank, ar in zip(nf.pc, nf.rank, nf.ar):
+            if rank >= l and rank <= r and ar * 100 >= lar and ar * 100 <= rar:
+                idlist.append(fid)
+    name = "diff[{},{}] AR[{},{}]".format(tostr(l), tostr(r), lar, rar)
+    content = createList(name, idlist, content)
+printList(content)
+print("生成完毕！结果存放在在output目录下")

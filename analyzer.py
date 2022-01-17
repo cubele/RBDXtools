@@ -15,7 +15,6 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
                 continue
             dats.append((rank, ar * 100, fc))
     dats = sorted(dats, key=lambda x: (x[0]))
-    print("analyzed {} scores".format(len(dats)))
     ranks, ars, fcs = [], [], []
     cnt, sar = {}, {}
     difs, aar = [], []
@@ -46,3 +45,4 @@ def analyze(dat, minar, rankl, rankr, name) -> None:
     plt.xlabel("difficulty")
     plt.ylabel("AR")
     plt.savefig('./output/{}.png'.format(name), bbox_inches = 'tight')
+    print("analyzed {} scores".format(len(dats)))
