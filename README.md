@@ -6,7 +6,11 @@
 Playlist生成：可以将指定难度区间的所有谱面根据本地最高AR所在区间进行划分，并为划分出的谱面生成一个可导入RBDX使用的playlist。
 
 ## 使用方式
-在本目录下新建文件夹score与output，将三个ScoreData文件（从RB中导出ScoreData.sqlite, ScoreData.sqlite-shm, ScoreData.sqlite-wal）放到score目录下，安装python，进入本目录从命令行运行
+在本目录下新建文件夹score与output，将三个ScoreData文件（从RB中导出ScoreData.sqlite, ScoreData.sqlite-shm, ScoreData.sqlite-wal）放到score目录下。
+
+直接在群里下载打包好的版本，双击运行RBDXtools.exe即可。
+
+或者安装python，进入本目录从命令行运行
 ```bash
 pip install --user -r requirements.txt
 python parse.py -a -p
@@ -16,12 +20,6 @@ python parse.py -a -p
 所有文件会输出到output文件夹中，分数统计以图片的方式输出，绿色点表示fc过的谱面。playlist输出为playlist文件，可以直接导入至RBDX进行覆盖。
 
 注意生成的playlist中只包含你提供的参数对应数量的playlist，覆盖后原有的playlist会消失。如果要保留原来的playlist，请备份原来的playlist文件并手动操作playlist文件进行合并。
-
-也可以直接在群里下载打包好的版本，在命令行中进入目录后直接运行
-```bash
-.\RBDXtools.exe -a -p
-```
-即可，修改参数的方式是一样的。
 
 ## 参数
 格式为
